@@ -1,0 +1,38 @@
+replicaCount: 3
+
+image:
+  tag: "latest"
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1024Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  hosts:
+    - host: employee-api.prod.enterprise.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: employee-api-tls
+      hosts:
+        - employee-api.prod.enterprise.com
+
+namespace: employee-api-prod
+
+env:
+  DB_HOST: "employee-db-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "employeedb_prod"
+  SERVER_PORT: "8080"
+  SPRING_PROFILES_ACTIVE: "prod"

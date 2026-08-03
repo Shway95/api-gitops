@@ -1,0 +1,83 @@
+replicaCount: 2
+
+image:
+  repository: ""  # Set via secrets: DOCKER_USERNAME/employee-api
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+nameOverride: ""
+fullnameOverride: "employee-api"
+
+serviceAccount:
+  create: true
+  name: "employee-api-sa"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: employee-api.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+livenessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+env:
+  DB_HOST: "employee-db-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "employeedb"
+  SERVER_PORT: "8080"
+
+secrets:
+  DB_USERNAME: "postgres"
+  DB_PASSWORD: "postgres"
+
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "postgres"
+    database: "employeedb"
+  primary:
+    persistence:
+      enabled: true
+      size: 5Gi
+
+namespace: employee-api

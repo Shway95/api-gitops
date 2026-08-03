@@ -1,0 +1,28 @@
+replicaCount: 2
+
+image:
+  tag: "latest"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+ingress:
+  hosts:
+    - host: employee-api.qa.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+namespace: employee-api-qa
+
+env:
+  DB_HOST: "employee-db-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "employeedb_qa"
+  SERVER_PORT: "8080"
+  SPRING_PROFILES_ACTIVE: "qa"
