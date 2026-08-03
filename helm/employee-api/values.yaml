@@ -70,6 +70,15 @@ secrets:
   DB_USERNAME: "dbadmin"
   DB_PASSWORD: ")ge14wlvepa^yZhM1LH36)pu"
 
+# External Secrets Operator is installed on the cluster.
+# In production, enable this to pull credentials directly from AWS Secrets Manager
+# instead of storing them in Git. The secret "employee-api-dev-db-credentials"
+# in AWS Secrets Manager is the source of truth with 30-day auto-rotation.
+externalSecrets:
+  enabled: false
+  region: "us-east-1"
+  secretName: "employee-api-dev-db-credentials"
+
 postgresql:
   enabled: true
   auth:
