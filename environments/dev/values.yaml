@@ -21,8 +21,8 @@ ingress:
 namespace: employee-api-dev
 
 env:
-  DB_HOST: "employee-db-postgresql"
+  DB_HOST: "10.0.10.97"
   DB_PORT: "5432"
-  DB_NAME: "employeedb_dev"
+  DB_NAME: "employeedb"
   SERVER_PORT: "8080"
   SPRING_PROFILES_ACTIVE: "dev"
