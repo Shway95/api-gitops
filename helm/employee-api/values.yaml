@@ -61,14 +61,14 @@ readinessProbe:
   failureThreshold: 3
 
 env:
-  DB_HOST: "employee-db-postgresql"
+  DB_HOST: "10.0.10.97"
   DB_PORT: "5432"
   DB_NAME: "employeedb"
   SERVER_PORT: "8080"
 
 secrets:
-  DB_USERNAME: "postgres"
-  DB_PASSWORD: "postgres"
+  DB_USERNAME: "dbadmin"
+  DB_PASSWORD: ")ge14wlvepa^yZhM1LH36)pu"
 
 postgresql:
   enabled: true
