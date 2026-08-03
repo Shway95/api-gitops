@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: ""  # Set via secrets: DOCKER_USERNAME/employee-api
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "a33be17"
 
 nameOverride: ""
 fullnameOverride: "employee-api"
