@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: ""  # Set via secrets: DOCKER_USERNAME/employee-api
+  repository: "shwetang95/employee-api"
   pullPolicy: IfNotPresent
   tag: "a33be17"
 
